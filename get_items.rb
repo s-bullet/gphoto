@@ -1,4 +1,5 @@
 require 'pp'
+require 'json'
 
 require 'google/api_client'
 require 'google/api_client/client_secrets'
@@ -62,4 +63,15 @@ def get_item(user_id, max_results=10)
   end
 end
 
-get_item('114958145471772079443', 50)
+filename = ARGV[0]
+
+fp_json = nil
+open(filename,'r'){|fp|
+  fp_json = JSON.parse(fp.read)
+}
+
+fp_json['people'].each do |item|
+  p item['id']
+  p item['name']
+  get_item(item['id'], 100)
+end
