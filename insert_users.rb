@@ -7,10 +7,11 @@ collection_names = db.collection_names
 
 while line = gets
     item = JSON.parse(line)
-    col_name = item['actor']['id']
+    col_name = "user_" + item['actor']['id']
 
     puts col_name
     puts collection_names
+
 
     if !collection_names.include?(col_name)
     	db.create_collection(col_name)
